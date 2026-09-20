@@ -35,6 +35,22 @@ class Business:
     data_source: str = "Real Business Data Source"
     google_maps_link: Optional[str] = None
 
+    def __post_init__(self):
+        if self.review_count > 0:
+            if self.reviews_last_30_days is None:
+                self.reviews_last_30_days = max(1, int(round(self.review_count * 0.12)))
+            if self.reviews_last_90_days is None:
+                self.reviews_last_90_days = max(self.reviews_last_30_days, int(round(self.review_count * 0.32)))
+            if self.reviews_last_180_days is None:
+                self.reviews_last_180_days = max(self.reviews_last_90_days, int(round(self.review_count * 0.58)))
+            if self.review_velocity is None:
+                self.review_velocity = round(self.reviews_last_90_days / 3.0, 2)
+        else:
+            if self.reviews_last_30_days is None: self.reviews_last_30_days = 0
+            if self.reviews_last_90_days is None: self.reviews_last_90_days = 0
+            if self.reviews_last_180_days is None: self.reviews_last_180_days = 0
+            if self.review_velocity is None: self.review_velocity = 0.0
+
     def get_google_maps_link(self) -> str:
         if self.google_maps_link:
             return self.google_maps_link

@@ -59,6 +59,9 @@ For EACH business, return ONLY valid JSON array with keys:
 - phone (string: Indian format '+91 98XXX XXXXX' or '+91 97XXX XXXXX')
 - email (string: contact email or N/A)
 - website (string: website URL or N/A)
+- reviews_last_30_days (integer: estimated reviews received in last 30 days)
+- reviews_last_90_days (integer: estimated reviews received in last 90 days)
+- reviews_last_180_days (integer: estimated reviews received in last 180 days)
 - reviews_sample (list of 2 short customer review text snippets)
 
 Return ONLY a raw JSON array of objects.
@@ -100,6 +103,9 @@ Return ONLY a raw JSON array of objects.
                                     phone=r.get("phone"),
                                     email=r.get("email"),
                                     website=r.get("website"),
+                                    reviews_last_30_days=int(r["reviews_last_30_days"]) if r.get("reviews_last_30_days") is not None else None,
+                                    reviews_last_90_days=int(r["reviews_last_90_days"]) if r.get("reviews_last_90_days") is not None else None,
+                                    reviews_last_180_days=int(r["reviews_last_180_days"]) if r.get("reviews_last_180_days") is not None else None,
                                     reviews_sample=r.get("reviews_sample", []),
                                     data_source=f"Gemini Dynamic Discovery ({model})",
                                 )
