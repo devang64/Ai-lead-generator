@@ -1,0 +1,2 @@
+# Core dependencies for AI Lead Generator
+openpyxl>=3.1.0
