@@ -1,3 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+.venv/
+env/
+
+# Generated data
+leads.csv
+
 # dependencies
 /node_modules
 /.pnp
