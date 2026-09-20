@@ -1,0 +1,11 @@
+# Core dependencies for AI Lead Generator
+openpyxl>=3.1.0
+
+# Google Sheets integration
+gspread>=5.12.0
+google-auth>=2.23.0
+
+# FastAPI REST Server for Dashboard UI
+fastapi>=0.100.0
+uvicorn>=0.20.0
+
