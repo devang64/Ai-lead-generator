@@ -24,8 +24,15 @@ def _load_env_file():
 
 _load_env_file()
 
-# Environment Variables (Single required API key)
+# Environment Variables
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+# Google Sheets Integration
+GOOGLE_SHEETS_SPREADSHEET_ID = os.getenv("GOOGLE_SHEETS_SPREADSHEET_ID", "")
+GOOGLE_SERVICE_ACCOUNT_JSON = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON", "service_account.json")
+
+# Run file output directory (timestamped per-run CSVs)
+RUNS_DIR = os.getenv("RUNS_DIR", "runs")
 
 # Gemini Model Settings
 GEMINI_CANDIDATE_MODELS = [

@@ -15,6 +15,13 @@ env/
 # Generated data
 leads.csv
 
+# Timestamped per-run CSV files
+runs/
+
+# Google Service Account credentials (never commit)
+service_account.json
+*.json.key
+
 # dependencies
 /node_modules
 /.pnp

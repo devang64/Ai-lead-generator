@@ -159,3 +159,27 @@ def export_leads_to_excel(csv_path: str = "leads.csv", excel_path: str = "leads.
         logger.error(f"Error exporting Excel file '{excel_path}': {e}")
 
     return csv_path
+
+def save_run_to_csv(leads: List[Lead], area: str, runs_dir: str = "runs") -> str:
+    """
+    Saves the current pipeline run's leads to a timestamped CSV file.
+    Each run gets its own file: runs/leads_YYYY-MM-DD_HH-MM-SS_Area.csv
+    Returns the file path.
+    """
+    os.makedirs(runs_dir, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    safe_area = area.replace(" ", "_").replace(",", "").replace("/", "-")
+    filename = f"leads_{timestamp}_{safe_area}.csv"
+    filepath = os.path.join(runs_dir, filename)
+
+    try:
+        with open(filepath, mode="w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=CSV_FIELDNAMES)
+            writer.writeheader()
+            for lead in leads:
+                writer.writerow(lead.to_dict())
+        logger.info(f"[RUN FILE] Saved {len(leads)} leads to timestamped run file: '{filepath}'")
+    except Exception as e:
+        logger.error(f"[RUN FILE] Failed to save run file '{filepath}': {e}")
+
+    return filepath
