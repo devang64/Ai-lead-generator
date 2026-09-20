@@ -6,6 +6,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any
 
+import urllib.parse
+
 def get_utc_iso_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
@@ -31,6 +33,18 @@ class Business:
     reviews_sample: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
     data_source: str = "Real Business Data Source"
+    google_maps_link: Optional[str] = None
+
+    def get_google_maps_link(self) -> str:
+        if self.google_maps_link:
+            return self.google_maps_link
+        if self.place_id and " " not in self.place_id and len(self.place_id) > 20 and not self.place_id.startswith("ChIJ_surat_"):
+            return f"https://www.google.com/maps/place/?q=place_id:{self.place_id}"
+        elif self.latitude and self.longitude:
+            return f"https://www.google.com/maps/search/?api=1&query={self.latitude},{self.longitude}"
+        else:
+            query = urllib.parse.quote_plus(f"{self.name}, {self.address}")
+            return f"https://www.google.com/maps/search/?api=1&query={query}"
 
 @dataclass
 class CompetitorMetrics:
@@ -82,7 +96,7 @@ class Lead:
     search_query: str = ""
 
     def to_dict(self) -> Dict[str, Any]:
-        """Convert Lead object into flat dictionary matching 30-field CSV schema."""
+        """Convert Lead object into flat dictionary matching 38-field CSV schema."""
         b = self.business
         c = self.competitors
         s = self.score
@@ -93,6 +107,7 @@ class Lead:
             "Place ID": b.place_id,
             "Category": b.category,
             "Address": b.address,
+            "Google Maps Link": b.get_google_maps_link(),
             "Area": b.area,
             "City": b.city,
             "Rating": b.rating,

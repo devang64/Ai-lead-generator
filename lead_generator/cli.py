@@ -204,8 +204,8 @@ def print_cli_summary(leads: List[Lead]):
         ai = l.ai_analysis
 
         print(f"### {rank}. {b.name} ({b.category} — {b.area})")
-        print(f"- **Place ID:** `{b.place_id}` | **Data Source:** {b.data_source}")
-        print(f"- **Metrics:** {b.rating}★ rating | {b.review_count} reviews | Contact: {b.phone or 'N/A'}")
+        print(f"- **Place ID:** `{b.place_id}` | **Google Maps:** {b.get_google_maps_link()}")
+        print(f"- **Metrics:** {b.rating}★ rating | {b.review_count} reviews | Contact: {b.phone or 'N/A'} | Source: {b.data_source}")
         print(f"- **Lead Grade:** **{s.grade}** (Score: {s.total_score}/100) | **Contactability:** {l.contact_score}/100")
         print(f"- **Competitive Gap:** {c.rating_gap}★ rating gap & {c.review_gap} review gap vs top competitor `{c.top_competitor_name}` ({c.top_competitor_rating}★ / {c.top_competitor_reviews} reviews)")
         if ai:

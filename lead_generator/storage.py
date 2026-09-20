@@ -21,6 +21,7 @@ CSV_FIELDNAMES = [
     "Place ID",
     "Category",
     "Address",
+    "Google Maps Link",
     "Area",
     "City",
     "Rating",
