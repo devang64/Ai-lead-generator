@@ -56,6 +56,8 @@ def run_pipeline(
     max_rating: float = DEFAULT_MAX_RATING,
     min_reviews: int = DEFAULT_MIN_REVIEWS,
     max_reviews: int = DEFAULT_MAX_REVIEWS,
+    city: str = DEFAULT_CITY,
+    state: str = DEFAULT_STATE,
     csv_path: str = DEFAULT_CSV_PATH,
     excel_path: str = None,
     json_path: str = None,
@@ -70,12 +72,27 @@ def run_pipeline(
 
     logger.info("================================================================================")
     logger.info(f"STARTING AI LEAD GENERATOR — FRESH SALES INTELLIGENCE PIPELINE")
-    logger.info(f"Area: '{area}' | Categories: {categories} | Target Filter: {min_rating}-{max_rating}★, {min_reviews}-{max_reviews} reviews")
+    logger.info(f"Target: '{area}, {city}, {state}' | Categories: {categories} | Target Filter: {min_rating}-{max_rating}★, {min_reviews}-{max_reviews} reviews")
     logger.info("================================================================================")
 
     # 1. Real / Fresh Business Discovery
+    existing_map = load_existing_leads_csv(csv_path)
+    existing_str = ", ".join([f"{r.get('Business Name')} ({r.get('Place ID')})" for r in existing_map.values() if r.get('Business Name')][:40])
+
     provider: BusinessDataProvider = select_data_provider()
-    raw_candidates = discover_candidate_businesses(provider, area=area, categories=categories, limit_per_category=limit)
+    raw_candidates = discover_candidate_businesses(
+        provider,
+        area=area,
+        categories=categories,
+        limit_per_category=limit,
+        city=city,
+        state=state,
+        min_rating=min_rating,
+        max_rating=max_rating,
+        min_reviews=min_reviews,
+        max_reviews=max_reviews,
+        existing_names_and_place_ids=existing_str,
+    )
     logger.info(f"[DISCOVERY] Total raw businesses discovered: {len(raw_candidates)}")
 
     # Fallback if Gemini dynamic provider returns empty
@@ -211,7 +228,7 @@ def print_cli_summary(leads: List[Lead]):
         if ai:
             print(f"- **Primary Pain Point:** {ai.primary_pain_point}")
             print(f"- **Evidence:** {' | '.join(ai.pain_point_evidence)}")
-            print(f"- **ReviewFlow Fit:** {ai.reviewflow_fit_reason}")
+            print(f"- **Ratingbuddy Fit:** {ai.Ratingbuddy_fit_reason}")
             print(f"- **Recommended Sales Angle:** {ai.recommended_sales_angle}")
             print(f"- **Personalized Opening:** \"{ai.personalized_opening}\"")
         print("-" * 80)

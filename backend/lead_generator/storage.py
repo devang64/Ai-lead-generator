@@ -48,7 +48,7 @@ CSV_FIELDNAMES = [
     "Data Confidence",
     "Primary Pain Point",
     "Pain Point Evidence",
-    "ReviewFlow Fit Reason",
+    "Ratingbuddy Fit Reason",
     "Recommended Sales Angle",
     "Personalized Opening",
     "First Seen",

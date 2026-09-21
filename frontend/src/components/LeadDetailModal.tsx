@@ -141,9 +141,9 @@ export default function LeadDetailModal({ lead, onClose }: LeadDetailModalProps)
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">ReviewFlow Fit Reason</h4>
+              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Ratingbuddy Fit Reason</h4>
               <p className="text-sm text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 font-medium">
-                {lead["ReviewFlow Fit Reason"]}
+                {lead["Ratingbuddy Fit Reason"]}
               </p>
             </div>
 

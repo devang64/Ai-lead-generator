@@ -106,7 +106,7 @@ export default function Dashboard() {
             </div>
             <div>
               <h1 className="text-lg font-bold text-slate-900 tracking-tight flex items-center gap-2">
-                ReviewFlow <span className="text-[11px] bg-indigo-50 text-indigo-700 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-200">AI LEAD GEN V2</span>
+                Ratingbuddy <span className="text-[11px] bg-indigo-50 text-indigo-700 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-200">AI LEAD GEN V2</span>
               </h1>
               <p className="text-xs text-slate-500 font-medium">Sales Intelligence & Google Review Growth Engine</p>
             </div>

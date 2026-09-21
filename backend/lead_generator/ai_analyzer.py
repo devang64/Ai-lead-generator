@@ -35,7 +35,7 @@ def analyze_lead_with_gemini(
     reviews_text = "\n".join([f"- \"{r}\"" for r in business.reviews_sample]) if business.reviews_sample else "No customer review text available."
 
     prompt = f"""
-You are a senior B2B Sales Specialist for ReviewFlow (a QR-based Google review management platform).
+You are a senior B2B Sales Specialist for Ratingbuddy (a QR-based Google review management platform).
 Analyze the following VERIFIED real local business data and generate sales intelligence.
 
 STRICT MANDATORY RULES:
@@ -65,7 +65,7 @@ Return ONLY a raw JSON object with EXACTLY these keys:
 - pain_point_evidence (list of strings: specific facts supporting the pain point)
 - positive_themes (list of strings: positive customer highlights)
 - negative_themes (list of strings: negative customer complaints or risks)
-- reviewflow_fit_reason (string: why ReviewFlow QR flow fits their business model)
+- Ratingbuddy_fit_reason (string: why Ratingbuddy QR flow fits their business model)
 - recommended_sales_angle (string: strategic pitch angle)
 - personalized_opening (string: personalized cold outreach email/message opening)
 - ai_confidence (string: 'HIGH', 'MEDIUM', or 'LOW')
@@ -96,7 +96,7 @@ Return ONLY a raw JSON object with EXACTLY these keys:
                         pain_point_evidence=parsed.get("pain_point_evidence", [f"{business.rating}★ with {business.review_count} reviews"]),
                         positive_themes=parsed.get("positive_themes", ["Good service"]),
                         negative_themes=parsed.get("negative_themes", ["Review volume gap"]),
-                        reviewflow_fit_reason=parsed.get("reviewflow_fit_reason", "High footfall business location ideal for QR review collection at checkout."),
+                        Ratingbuddy_fit_reason=parsed.get("Ratingbuddy_fit_reason", "High footfall business location ideal for QR review collection at checkout."),
                         recommended_sales_angle=parsed.get("recommended_sales_angle", "Convert satisfied in-person customers into positive Google reviews."),
                         personalized_opening=parsed.get("personalized_opening", f"Hi, I noticed {business.name} has a solid {business.rating}★ rating on Google Maps..."),
                         ai_confidence=parsed.get("ai_confidence", "HIGH"),
@@ -121,14 +121,14 @@ def generate_fallback_analysis(business: Business, competitors: CompetitorMetric
 
     fit_reason = f"As a high-footfall {business.category.lower()}, {business.name} serves daily walk-in clients who leave without leaving Google reviews."
     sales_angle = "Implement a seamless QR-based checkout review funnel to turn happy customers into 5-star Google reviews automatically."
-    opening = f"Hi, I noticed {business.name} in {business.area} is getting good customer visits, but your Google rating sits at {business.rating}★ with {business.review_count} reviews while nearby competitors have {competitors.top_competitor_reviews}+ reviews. ReviewFlow helps automate your review growth."
+    opening = f"Hi, I noticed {business.name} in {business.area} is getting good customer visits, but your Google rating sits at {business.rating}★ with {business.review_count} reviews while nearby competitors have {competitors.top_competitor_reviews}+ reviews. Ratingbuddy helps automate your review growth."
 
     return ReviewAnalysis(
         primary_pain_point=pain_point,
         pain_point_evidence=evidence,
         positive_themes=["Quality service", "Convenient location"],
         negative_themes=["Low review momentum", "Competitor dominance"],
-        reviewflow_fit_reason=fit_reason,
+        Ratingbuddy_fit_reason=fit_reason,
         recommended_sales_angle=sales_angle,
         personalized_opening=opening,
         ai_confidence="MEDIUM",

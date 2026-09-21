@@ -386,7 +386,19 @@ class VerifiedLocalDataProvider(BusinessDataProvider):
     def name(self) -> str:
         return "Verified Local Business Database"
 
-    def search_places(self, area: str, category: str, limit: int = 50) -> List[Business]:
+    def search_places(
+        self,
+        area: str,
+        category: str,
+        limit: int = 50,
+        city: str = "Surat",
+        state: str = "Gujarat",
+        min_rating: float = 3.5,
+        max_rating: float = 4.3,
+        min_reviews: int = 5,
+        max_reviews: int = 80,
+        existing_names_and_place_ids: str = "",
+    ) -> List[Business]:
         results = []
         # Create a copy and shuffle to ensure random fresh sampling on every execution
         pool = list(VERIFIED_LOCAL_DATABASE)

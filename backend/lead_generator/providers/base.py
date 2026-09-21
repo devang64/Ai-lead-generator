@@ -16,7 +16,19 @@ class BusinessDataProvider(ABC):
         pass
 
     @abstractmethod
-    def search_places(self, area: str, category: str, limit: int = 50) -> List[Business]:
+    def search_places(
+        self,
+        area: str,
+        category: str,
+        limit: int = 50,
+        city: str = "Surat",
+        state: str = "Gujarat",
+        min_rating: float = 3.5,
+        max_rating: float = 4.3,
+        min_reviews: int = 5,
+        max_reviews: int = 80,
+        existing_names_and_place_ids: str = "",
+    ) -> List[Business]:
         """
         Search and discover real local businesses.
         Must return list of Business objects with REAL non-fabricated attributes.

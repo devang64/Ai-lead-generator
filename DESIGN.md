@@ -20,7 +20,7 @@
 
 ### 1.2 The "Sweet Spot" Targeting Strategy
 
-The rating range `3.5★ – 4.3★` was deliberately designed as the **ReviewFlow opportunity window**:
+The rating range `3.5★ – 4.3★` was deliberately designed as the **Ratingbuddy opportunity window**:
 
 ```
 0★ ────────── 3.5★ ────────────── 4.3★ ────── 4.5★ ─── 5.0★
@@ -30,7 +30,7 @@ The rating range `3.5★ – 4.3★` was deliberately designed as the **ReviewFl
               │   growth possible) │   less room)
 ```
 
-- Below 3.5★: businesses are struggling deeply — ReviewFlow alone won't fix them
+- Below 3.5★: businesses are struggling deeply — Ratingbuddy alone won't fix them
 - Above 4.3★: businesses are already performing well — low urgency for them to buy
 - 5–80 reviews: low volume means maximum impact from a QR review funnel
 
@@ -86,11 +86,11 @@ The rating range `3.5★ – 4.3★` was deliberately designed as the **ReviewFl
 
 | Dimension | Weight | Design Reasoning |
 |-----------|--------|-----------------|
-| Review Opportunity | 25 | Highest weight — the core problem ReviewFlow solves |
+| Review Opportunity | 25 | Highest weight — the core problem Ratingbuddy solves |
 | Competitive Gap | 20 | Urgency driver — businesses feel pain when competitors outrank them |
 | Business Activity | 15 | Active businesses are better sales prospects (they care about growth) |
 | Reputation Signals | 15 | Sub-4.0 is a trust crisis — creates genuine sales urgency |
-| ReviewFlow Fit | 15 | Category fit determines whether QR-at-checkout even makes sense |
+| Ratingbuddy Fit | 15 | Category fit determines whether QR-at-checkout even makes sense |
 | Contactability | 10 | Lowest weight — we can find many contacts, but contact quality matters less than fit |
 
 **Total = 100.** Weights are configurable via `config.SCORING_WEIGHTS`.
@@ -126,7 +126,7 @@ Contact Score is a **separate signal** because high lead score + low contactabil
 The Gemini prompt is architected in three sections:
 
 ```
-1. ROLE          → "You are a senior B2B Sales Specialist for ReviewFlow..."
+1. ROLE          → "You are a senior B2B Sales Specialist for Ratingbuddy..."
 2. STRICT RULES  → Fact vs. Inference separation, no data invention
 3. VERIFIED FACTS → Real business data passed as structured context
 4. OUTPUT FORMAT → JSON schema with exact key names

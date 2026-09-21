@@ -81,7 +81,7 @@ class ReviewAnalysis:
     pain_point_evidence: List[str]
     positive_themes: List[str]
     negative_themes: List[str]
-    reviewflow_fit_reason: str
+    Ratingbuddy_fit_reason: str
     recommended_sales_angle: str
     personalized_opening: str
     ai_confidence: str = "MEDIUM"
@@ -93,7 +93,7 @@ class LeadScore:
     competitive_gap_score: float
     business_activity_score: float
     reputation_signals_score: float
-    reviewflow_fit_score: float
+    Ratingbuddy_fit_score: float
     contactability_score: float
     total_score: float
     grade: str  # A+, A, B, C, D
@@ -150,7 +150,7 @@ class Lead:
             "Data Confidence": self.data_confidence,
             "Primary Pain Point": ai.primary_pain_point if ai else "Needs automated review collection.",
             "Pain Point Evidence": " | ".join(ai.pain_point_evidence) if ai and ai.pain_point_evidence else "N/A",
-            "ReviewFlow Fit Reason": ai.reviewflow_fit_reason if ai else "High footfall category benefit.",
+            "Ratingbuddy Fit Reason": ai.Ratingbuddy_fit_reason if ai else "High footfall category benefit.",
             "Recommended Sales Angle": ai.recommended_sales_angle if ai else "Convert happy walk-ins into reviews.",
             "Personalized Opening": ai.personalized_opening if ai else "Hi, we noticed your business on Google...",
             "First Seen": self.first_seen,

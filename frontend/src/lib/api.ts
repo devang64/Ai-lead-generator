@@ -32,7 +32,7 @@ export interface LeadItem {
   "Data Confidence": string;
   "Primary Pain Point": string;
   "Pain Point Evidence": string;
-  "ReviewFlow Fit Reason": string;
+  "Ratingbuddy Fit Reason": string;
   "Recommended Sales Angle": string;
   "Personalized Opening": string;
   "First Seen": string;
@@ -73,6 +73,8 @@ export async function fetchHealth(): Promise<boolean> {
 
 export async function triggerRun(data: {
   area: string;
+  city: string;
+  state: string;
   categories: string[];
   candidate_limit: number;
   final_limit: number;

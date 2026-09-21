@@ -92,7 +92,7 @@ Single source of truth for all configurable values. Loaded at import time.
 | `DEFAULT_MIN_REVIEWS` | `int` | `5` |
 | `DEFAULT_MAX_REVIEWS` | `int` | `80` |
 | `SCORING_WEIGHTS` | `dict` | 6-dimension weight map (sums to 100) |
-| `IDEAL_REVIEWFLOW_CATEGORIES` | `list[str]` | High-footfall category names |
+| `IDEAL_Ratingbuddy_CATEGORIES` | `list[str]` | High-footfall category names |
 | `CONTACT_POINTS` | `dict` | Point values per contact channel |
 | `CACHE_DIR` | `str` | `.cache_lead_gen` |
 | `CACHE_TTL_HOURS` | `int` | `24` |
@@ -128,7 +128,7 @@ LeadScore
   ├── competitive_gap_score      (max 20)
   ├── business_activity_score    (max 15)
   ├── reputation_signals_score   (max 15)
-  ├── reviewflow_fit_score       (max 15)
+  ├── Ratingbuddy_fit_score       (max 15)
   ├── contactability_score       (max 10)
   ├── total_score (float, 0–100)
   └── grade (A+/A/B/C/D)
@@ -137,7 +137,7 @@ ReviewAnalysis
   ├── primary_pain_point (str)
   ├── pain_point_evidence (List[str])
   ├── positive_themes, negative_themes (List[str])
-  ├── reviewflow_fit_reason (str)
+  ├── Ratingbuddy_fit_reason (str)
   ├── recommended_sales_angle (str)
   ├── personalized_opening (str)
   ├── ai_confidence (HIGH/MEDIUM/LOW)
@@ -252,8 +252,8 @@ Score = Σ(dimension_scores), capped at 100
    4.0–4.2       → 10 pts
    > 4.2         → 5 pts
 
-5. ReviewFlow Fit (max 15):
-   Category in IDEAL_REVIEWFLOW_CATEGORIES → 15 pts, else 8 pts
+5. Ratingbuddy Fit (max 15):
+   Category in IDEAL_Ratingbuddy_CATEGORIES → 15 pts, else 8 pts
 
 6. Contactability (max 10):
    contact_score / 10 (derived from phone/website/email/address presence)
@@ -415,7 +415,7 @@ Loaded automatically from `.env` at project root via `config._load_env_file()`.
 4. Add selection logic in `cli.select_data_provider()`
 
 ### Adding a New Business Category
-1. Add category string to `IDEAL_REVIEWFLOW_CATEGORIES` in `config.py` (for fit scoring)
+1. Add category string to `IDEAL_Ratingbuddy_CATEGORIES` in `config.py` (for fit scoring)
 2. Add competitor data for the category in `verified_local.REAL_COMPETITOR_DATABASE`
 3. Add category name mapping in `competitors.analyze_competitors()` if needed
 

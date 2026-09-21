@@ -90,7 +90,7 @@
 
 - [ ] **Spa, Gym, Dental categories**
   - Add competitor database entries for Spa, Gym, Dental Clinic in `verified_local.py`
-  - Add to `IDEAL_REVIEWFLOW_CATEGORIES` in `config.py`
+  - Add to `IDEAL_Ratingbuddy_CATEGORIES` in `config.py`
   - Test filtering and scoring for these categories
 
 - [ ] **Lead status tracking column**

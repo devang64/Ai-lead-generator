@@ -11,15 +11,15 @@
 
 ## 1. What This Project Is (In One Paragraph)
 
-This is a **sales lead generation CLI tool for ReviewFlow** — a QR-based Google Review Management SaaS. The tool discovers real local businesses in a given area, scores them on how urgently they need a review management tool, and uses Gemini AI to write personalized cold outreach pitches for each. Output is a ranked CSV/Excel/JSON file of ready-to-contact leads. It is designed to be run daily by a founder or sales rep to target a new area or category each time.
+This is a **sales lead generation CLI tool for Ratingbuddy** — a QR-based Google Review Management SaaS. The tool discovers real local businesses in a given area, scores them on how urgently they need a review management tool, and uses Gemini AI to write personalized cold outreach pitches for each. Output is a ranked CSV/Excel/JSON file of ready-to-contact leads. It is designed to be run daily by a founder or sales rep to target a new area or category each time.
 
 ---
 
-## 2. The Product Context — ReviewFlow
+## 2. The Product Context — Ratingbuddy
 
-ReviewFlow is the **customer** of this lead generator. Key facts to remember:
+Ratingbuddy is the **customer** of this lead generator. Key facts to remember:
 
-- **What ReviewFlow sells:** A QR code system that businesses place at their checkout/counter. Customers scan it and are guided to leave a Google Review in 2 clicks.
+- **What Ratingbuddy sells:** A QR code system that businesses place at their checkout/counter. Customers scan it and are guided to leave a Google Review in 2 clicks.
 - **Who buys it:** Local SMBs — salons, restaurants, cafes, gyms, dental clinics — any business with daily walk-in footfall
 - **Why they buy it:** Their Google rating is hurting their visibility vs. competitors, or they have too few reviews to show up in local search
 - **Ideal customer:** Rating 3.5–4.3★, low review count (<80), active business, has competitors outranking them

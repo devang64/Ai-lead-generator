@@ -2,7 +2,7 @@
 ## AI Lead Generator — Quality-First Sales Intelligence System
 
 **Version:** 2.0  
-**Product:** AI Lead Generator for ReviewFlow  
+**Product:** AI Lead Generator for Ratingbuddy  
 **Owner:** Devang  
 **Last Updated:** September 2026  
 
@@ -12,7 +12,7 @@
 
 ### 1.1 Problem Statement
 
-ReviewFlow is a QR-based Google Review Management SaaS targeting local businesses. The core sales challenge is identifying the **right** businesses to pitch — those that have:
+Ratingbuddy is a QR-based Google Review Management SaaS targeting local businesses. The core sales challenge is identifying the **right** businesses to pitch — those that have:
 
 - A real gap between their current Google rating/reviews and the market leader
 - High enough customer footfall to benefit from review automation
@@ -62,7 +62,7 @@ A **production-grade Python CLI tool** that:
 | Attribute | Ideal Range | Rationale |
 |-----------|-------------|-----------|
 | Google Rating | 3.5★ – 4.3★ | Low enough to have growth room, not so bad they are hopeless |
-| Review Count | 5 – 80 | Low volume = high opportunity for ReviewFlow's QR funnel |
+| Review Count | 5 – 80 | Low volume = high opportunity for Ratingbuddy's QR funnel |
 | Category | Salon, Restaurant, Cafe, Spa, Gym, Dental | High footfall = daily customers who can leave reviews |
 | Has Phone | Yes | Required for sales outreach |
 | Competitor Gap | > 0.3★ or > 50 reviews | Proof that market leaders are outperforming them |
@@ -110,7 +110,7 @@ Both providers implement the `BusinessDataProvider` abstract interface.
 | Competitive Gap | 20 | Rating & review gap vs. top competitor |
 | Business Activity | 15 | Has website, phone, positive review velocity |
 | Reputation Signals | 15 | Sub-4.0 rating = critical trust issue |
-| ReviewFlow Fit | 15 | High-footfall category match |
+| Ratingbuddy Fit | 15 | High-footfall category match |
 | Contactability | 10 | Phone, website, email, address availability |
 
 ### 4.4 AI Sales Intelligence Output (per lead)
@@ -119,7 +119,7 @@ Both providers implement the `BusinessDataProvider` abstract interface.
 - `pain_point_evidence` — Specific facts (ratings, review counts) supporting the pain point
 - `positive_themes` — What the business does well
 - `negative_themes` — Review complaints or risks
-- `reviewflow_fit_reason` — Why ReviewFlow's QR funnel fits this business
+- `Ratingbuddy_fit_reason` — Why Ratingbuddy's QR funnel fits this business
 - `recommended_sales_angle` — Strategic pitch direction
 - `personalized_opening` — Ready-to-send cold outreach message opening
 
@@ -203,7 +203,7 @@ python3 main.py \
 | Data Confidence | HIGH/MEDIUM/LOW | `scoring.py` |
 | Primary Pain Point | string | Gemini AI |
 | Pain Point Evidence | string | Gemini AI |
-| ReviewFlow Fit Reason | string | Gemini AI |
+| Ratingbuddy Fit Reason | string | Gemini AI |
 | Recommended Sales Angle | string | Gemini AI |
 | Personalized Opening | string | Gemini AI |
 | First Seen | ISO 8601 UTC | `storage.py` |

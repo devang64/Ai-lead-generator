@@ -1,6 +1,6 @@
 # Lead Generator V2 — Quality-First Sales Intelligence System
 
-A production-grade Python CLI tool and sales intelligence engine for **ReviewFlow** (Google Review Management SaaS).
+A production-grade Python CLI tool and sales intelligence engine for **Ratingbuddy** (Google Review Management SaaS).
 
 Discovers real local businesses, performs programmatic competitor gap analysis, calculates a transparent 100-point lead score, and uses Gemini AI to synthesize sales angles and personalized outreach pitches with strict **Fact vs. Inference** separation.
 
@@ -81,4 +81,4 @@ python3 -m unittest discover -s tests -p "test_*.py"
 
 ## CSV Schema (30 Columns)
 
-`Business Name`, `Place ID`, `Category`, `Address`, `Area`, `City`, `Rating`, `Review Count`, `Reviews Last 30 Days`, `Reviews Last 90 Days`, `Reviews Last 180 Days`, `Review Velocity`, `Competitor Count`, `Strong Competitors Count`, `Competitor Average Rating`, `Competitor Average Reviews`, `Top Competitor`, `Top Competitor Rating`, `Top Competitor Reviews`, `Rating Gap`, `Review Gap`, `Phone`, `Email`, `Website`, `Lead Score`, `Lead Grade`, `Contact Score`, `Data Confidence`, `Primary Pain Point`, `Pain Point Evidence`, `ReviewFlow Fit Reason`, `Recommended Sales Angle`, `Personalized Opening`, `First Seen`, `Last Checked`, `Source`, `Search Area`, `Search Query`.
+`Business Name`, `Place ID`, `Category`, `Address`, `Area`, `City`, `Rating`, `Review Count`, `Reviews Last 30 Days`, `Reviews Last 90 Days`, `Reviews Last 180 Days`, `Review Velocity`, `Competitor Count`, `Strong Competitors Count`, `Competitor Average Rating`, `Competitor Average Reviews`, `Top Competitor`, `Top Competitor Rating`, `Top Competitor Reviews`, `Rating Gap`, `Review Gap`, `Phone`, `Email`, `Website`, `Lead Score`, `Lead Grade`, `Contact Score`, `Data Confidence`, `Primary Pain Point`, `Pain Point Evidence`, `Ratingbuddy Fit Reason`, `Recommended Sales Angle`, `Personalized Opening`, `First Seen`, `Last Checked`, `Source`, `Search Area`, `Search Query`.

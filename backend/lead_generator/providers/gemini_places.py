@@ -27,44 +27,45 @@ class GeminiPlacesDataProvider(BusinessDataProvider):
     def name(self) -> str:
         return "Gemini AI Dynamic Discovery Provider"
 
-    def search_places(self, area: str, category: str, limit: int = 50) -> List[Business]:
+    def search_places(
+        self,
+        area: str,
+        category: str,
+        limit: int = 50,
+        city: str = "Surat",
+        state: str = "Gujarat",
+        min_rating: float = 3.5,
+        max_rating: float = 4.3,
+        min_reviews: int = 5,
+        max_reviews: int = 80,
+        existing_names_and_place_ids: str = "",
+    ) -> List[Business]:
         if not self.api_key:
             logger.warning("No GEMINI_API_KEY set. Cannot query Gemini places provider.")
             return []
 
-        timestamp_seed = int(time.time())
-        
-        prompt = f"""
-You are a local business discovery specialist for {area}, Gujarat, India.
-Seed/Run ID: {timestamp_seed}
+        existing_str = existing_names_and_place_ids if existing_names_and_place_ids else "None"
 
-Generate a list of up to 10 NEW, FRESH, non-repetitive local business leads in {area} for the category '{category}'.
+        prompt = f"""You are a lead researcher. Use your live Google Maps / Search tool to find REAL businesses that exist today. Do not recall from memory. Do not invent, estimate, or "realistically generate" anything.
 
-STRICT REQUIREMENTS:
-1. Rating: Must be between 3.5 and 4.3 stars.
-2. Reviews: Must be under 80 reviews (e.g. 11, 19, 24, 32, 45, 58, 67, 74).
-3. Area: Must be located in {area} (specify real local sub-areas/streets).
-4. Category: {category}.
-5. Generate DIFFERENT, fresh business leads on every run.
+Task: find up to 10 "{category}" businesses in {area}, {city}, {state}, India.
 
-For EACH business, return ONLY valid JSON array with keys:
-- place_id (string: format 'ChIJ_surat_{category.lower()[:3]}_' + random 6 digits)
-- name (string: real or highly realistic local business name in {area})
-- address (string: full realistic address in {area}, Surat, Gujarat)
-- area (string: sub-locality in {area})
-- city (string: 'Surat')
-- category (string: '{category}')
-- rating (float: between 3.5 and 4.3)
-- review_count (integer: under 80)
-- phone (string: Indian format '+91 98XXX XXXXX' or '+91 97XXX XXXXX')
-- email (string: contact email or N/A)
-- website (string: website URL or N/A)
-- reviews_last_30_days (integer: estimated reviews received in last 30 days)
-- reviews_last_90_days (integer: estimated reviews received in last 90 days)
-- reviews_last_180_days (integer: estimated reviews received in last 180 days)
-- reviews_sample (list of 2 short customer review text snippets)
+Include a business ONLY if you can confirm ALL of these from a live source:
+- it is currently open and operating
+- it has its own Google Maps listing in {area} or an adjacent locality
+- Google rating is between {min_rating} and {max_rating}
+- it has fewer than {max_reviews} Google reviews
+- a phone number is shown on the listing
 
-Return ONLY a raw JSON array of objects.
+Exclude: national/regional chains and franchises, closed businesses, and anything in this already-collected list: {existing_str}
+
+Field rules:
+- Copy each value exactly as the source shows it. Names must match Google Maps spelling exactly.
+- If a value is not shown, return null. Never estimate, round, or fill gaps.
+- Do not write review text. Do not report review counts by time period.
+
+Return ONLY a raw JSON array. If fewer than 10 qualify, return fewer. An empty array is a valid answer.
+Keys: name, address, area, category, rating, review_count, phone, website, email (only if visibly listed, else null), maps_url, place_id (only if shown, else null), source_url.
 """
 
         payload = {
@@ -74,7 +75,7 @@ Return ONLY a raw JSON array of objects.
 
         for model in GEMINI_CANDIDATE_MODELS:
             url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={self.api_key}"
-            logger.info(f"Querying Gemini model '{model}' for fresh '{category}' leads in '{area}'...")
+            logger.info(f"Querying Gemini model '{model}' for live '{category}' leads in '{area}, {city}, {state}'...")
 
             for attempt in range(1, 3):
                 try:
@@ -92,26 +93,23 @@ Return ONLY a raw JSON array of objects.
                             businesses = []
                             for r in parsed_list[:limit]:
                                 b = Business(
-                                    place_id=r.get("place_id", f"ChIJ_surat_{int(time.time()*1000)}"),
-                                    name=r.get("name", f"Local {category}"),
-                                    address=r.get("address", f"{area}, Surat, Gujarat"),
-                                    area=r.get("area", area),
-                                    city=r.get("city", "Surat"),
-                                    category=r.get("category", category),
-                                    rating=float(r.get("rating", 4.0)),
-                                    review_count=int(r.get("review_count", 30)),
-                                    phone=r.get("phone"),
+                                    place_id=r.get("place_id") or f"ChIJ_{city.lower()[:3]}_{category.lower()[:3]}_{int(time.time()*1000)}",
+                                    name=r.get("name") or f"Local {category}",
+                                    address=r.get("address") or f"{area}, {city}, {state}",
+                                    area=r.get("area") or area,
+                                    city=city,
+                                    category=r.get("category") or category,
+                                    rating=float(r.get("rating", 4.0)) if r.get("rating") is not None else 4.0,
+                                    review_count=int(r.get("review_count", 20)) if r.get("review_count") is not None else 20,
+                                    phone=r.get("phone") or "Unlisted",
                                     email=r.get("email"),
                                     website=r.get("website"),
-                                    reviews_last_30_days=int(r["reviews_last_30_days"]) if r.get("reviews_last_30_days") is not None else None,
-                                    reviews_last_90_days=int(r["reviews_last_90_days"]) if r.get("reviews_last_90_days") is not None else None,
-                                    reviews_last_180_days=int(r["reviews_last_180_days"]) if r.get("reviews_last_180_days") is not None else None,
-                                    reviews_sample=r.get("reviews_sample", []),
-                                    data_source=f"Gemini Dynamic Discovery ({model})",
+                                    data_source=f"Gemini Live Discovery ({model})",
+                                    google_maps_link=r.get("maps_url") or r.get("source_url"),
                                 )
                                 businesses.append(b)
 
-                            logger.info(f"Successfully generated {len(businesses)} fresh '{category}' leads via Gemini API ({model}).")
+                            logger.info(f"Successfully generated {len(businesses)} live '{category}' leads via Gemini API ({model}).")
                             return businesses
                 except Exception as e:
                     logger.warning(f"Error querying Gemini API ({model}): {e}")

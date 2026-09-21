@@ -43,7 +43,9 @@ GEMINI_CANDIDATE_MODELS = [
 ]
 
 # Defaults for Discovery & Filtering
-DEFAULT_AREA = "Adajan Surat"
+DEFAULT_AREA = "Adajan"
+DEFAULT_CITY = "Surat"
+DEFAULT_STATE = "Gujarat"
 DEFAULT_CATEGORIES = ["Salon", "Restaurant", "Cafe"]
 DEFAULT_MIN_RATING = 3.5
 DEFAULT_MAX_RATING = 4.3
@@ -59,12 +61,12 @@ SCORING_WEIGHTS: Dict[str, float] = {
     "competitive_gap": 20.0,     # Rating/review gap vs nearby competitors
     "business_activity": 15.0,   # Active presence, website, photos, listing quality
     "reputation_signals": 15.0,  # Negative review vulnerability, sub-4.0 trust rating
-    "reviewflow_fit": 15.0,      # High footfall category (salon, restaurant, cafe, spa)
+    "Ratingbuddy_fit": 15.0,      # High footfall category (salon, restaurant, cafe, spa)
     "contactability": 10.0,      # Phone, website, email availability
 }
 
 # Ideal Categories (High footfall, direct customer interaction)
-IDEAL_REVIEWFLOW_CATEGORIES = [
+IDEAL_Ratingbuddy_CATEGORIES = [
     "salon", "hair salon", "unisex salon", "beauty parlour", "spa",
     "restaurant", "cafe", "bistro", "dining", "thali", "diner",
     "dental clinic", "gym", "hotel", "spa & wellness"

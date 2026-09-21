@@ -3,7 +3,7 @@ Transparent scoring engine, lead grading, contactability scoring, and data confi
 Calculates 100-point explainable lead score in pure Python.
 """
 
-from lead_generator.config import IDEAL_REVIEWFLOW_CATEGORIES, SCORING_WEIGHTS, CONTACT_POINTS
+from lead_generator.config import IDEAL_Ratingbuddy_CATEGORIES, SCORING_WEIGHTS, CONTACT_POINTS
 from lead_generator.models import Business, CompetitorMetrics, LeadScore
 
 def calculate_contact_score(business: Business) -> float:
@@ -70,16 +70,16 @@ def compute_lead_score(business: Business, competitors: CompetitorMetrics) -> Le
 
     # 4. Reputation Signals (Max 15 pts)
     if business.rating < 4.0:
-        rep_pts = 15.0  # Critical trust issue - highest urgency for ReviewFlow
+        rep_pts = 15.0  # Critical trust issue - highest urgency for Ratingbuddy
     elif 4.0 <= business.rating <= 4.2:
         rep_pts = 10.0
     else:
         rep_pts = 5.0
     rep_score = min(SCORING_WEIGHTS["reputation_signals"], rep_pts)
 
-    # 5. ReviewFlow Fit (Max 15 pts)
+    # 5. Ratingbuddy Fit (Max 15 pts)
     cat_lower = business.category.lower()
-    if any(ideal in cat_lower for ideal in IDEAL_REVIEWFLOW_CATEGORIES):
+    if any(ideal in cat_lower for ideal in IDEAL_Ratingbuddy_CATEGORIES):
         fit_score = 15.0
     else:
         fit_score = 8.0
@@ -108,7 +108,7 @@ def compute_lead_score(business: Business, competitors: CompetitorMetrics) -> Le
         competitive_gap_score=round(comp_score, 1),
         business_activity_score=round(act_score, 1),
         reputation_signals_score=round(rep_score, 1),
-        reviewflow_fit_score=round(fit_score, 1),
+        Ratingbuddy_fit_score=round(fit_score, 1),
         contactability_score=round(contact_pts, 1),
         total_score=round(total_score, 1),
         grade=grade,

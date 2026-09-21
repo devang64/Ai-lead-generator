@@ -83,7 +83,9 @@ execution_state: Dict[str, Any] = {
 state_lock = threading.Lock()
 
 class RunRequest(BaseModel):
-    area: str = Field(default=DEFAULT_AREA, description="Target search area (e.g. 'Adajan Surat')")
+    area: str = Field(default=DEFAULT_AREA, description="Target search area (e.g. 'Adajan', 'Bandra', 'Koramangala')")
+    city: str = Field(default=DEFAULT_CITY, description="Target city (e.g. 'Surat', 'Mumbai', 'Bengaluru')")
+    state: str = Field(default=DEFAULT_STATE, description="Target state (e.g. 'Gujarat', 'Maharashtra', 'Karnataka')")
     categories: List[str] = Field(default=DEFAULT_CATEGORIES, description="List of categories")
     candidate_limit: int = Field(default=DEFAULT_CANDIDATE_LIMIT, description="Candidates per category")
     final_limit: int = Field(default=DEFAULT_FINAL_LIMIT, description="Top final leads count")
@@ -100,7 +102,7 @@ def execute_pipeline_task(req: RunRequest):
         execution_state["status"] = "RUNNING"
         execution_state["started_at"] = datetime.now().isoformat()
         execution_state["completed_at"] = None
-        execution_state["area"] = req.area
+        execution_state["area"] = f"{req.area}, {req.city}, {req.state}"
         execution_state["categories"] = req.categories
         execution_state["error"] = None
         execution_state["leads_count"] = 0
@@ -110,6 +112,8 @@ def execute_pipeline_task(req: RunRequest):
     try:
         leads = run_pipeline(
             area=req.area,
+            city=req.city,
+            state=req.state,
             categories=req.categories,
             limit=req.candidate_limit,
             final_limit=req.final_limit,
