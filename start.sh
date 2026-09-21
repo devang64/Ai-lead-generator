@@ -1,11 +1,14 @@
 #!/bin/bash
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 echo "🚀 Starting AI Lead Generator..."
+
 echo "1. Starting Python FastAPI Backend on http://localhost:8000..."
-cd backend && python3 -m uvicorn server:app --host 0.0.0.0 --port 8000 &
+(cd "$PROJECT_DIR/backend" && python3 -m uvicorn server:app --host 0.0.0.0 --port 8000) &
 BACKEND_PID=$!
 
 echo "2. Starting Next.js UI Dashboard on http://localhost:3000..."
-cd ../frontend && npm run dev -- -p 3000 &
+(cd "$PROJECT_DIR/frontend" && npm run dev -- -p 3000) &
 FRONTEND_PID=$!
 
 echo ""
